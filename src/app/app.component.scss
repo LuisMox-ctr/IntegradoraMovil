@@ -1,0 +1,295 @@
+// ============================================
+// VARIABLES GLOBALES - TEMA V MAGMA
+// ============================================
+$magma-red: #ff4444;
+$magma-orange: #ff6b1a;
+$dark-bg: #1a1a1a;
+$darker-bg: #0f0f0f;
+$fog-gray: #2a2a2a;
+$text-light: #e0e0e0;
+
+// ============================================
+// ESTILOS GLOBALES PARA TODAS LAS VISTAS
+// ============================================
+
+// Background apocalíptico para todo el contenido
+ion-content {
+  --background: linear-gradient(180deg, #{$darker-bg} 0%, #1a0a0a 50%, #{$dark-bg} 100%);
+}
+
+// ============================================
+// PARTÍCULAS DE LAVA FLOTANTES
+// ============================================
+.lava-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  bottom: -10px;
+  width: 4px;
+  height: 4px;
+  background: $magma-orange;
+  border-radius: 50%;
+  box-shadow: 
+    0 0 10px $magma-red,
+    0 0 20px $magma-orange;
+  animation: floatUp linear infinite;
+  opacity: 0;
+  
+  // Variaciones de tamaño
+  &.small {
+    width: 2px;
+    height: 2px;
+  }
+  
+  &.medium {
+    width: 4px;
+    height: 4px;
+  }
+  
+  &.large {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+// Crear múltiples partículas con diferentes animaciones
+@for $i from 1 through 30 {
+  .particle:nth-child(#{$i}) {
+    left: random(100) * 1%;
+    animation-duration: (random(8) + 4) * 1s;
+    animation-delay: random(5) * 1s;
+  }
+}
+
+// ============================================
+// CARDS OSCURAS GLOBALES
+// ============================================
+ion-card {
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  box-shadow: 0 0 20px rgba(255, 68, 68, 0.2);
+  
+  ion-card-title {
+    color: $magma-orange;
+    font-weight: 700;
+  }
+  
+  ion-card-content {
+    color: $text-light;
+  }
+}
+
+// ============================================
+// TÍTULOS Y TEXTOS GLOBALES
+// ============================================
+.section-title {
+  color: $magma-red;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px $magma-orange;
+  text-transform: uppercase;
+}
+
+// ============================================
+// BOTONES TEMÁTICOS
+// ============================================
+ion-button {
+  --border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  
+  &.primary-button {
+    --background: linear-gradient(135deg, #{$magma-red} 0%, #{$magma-orange} 100%);
+    --background-hover: linear-gradient(135deg, #{$magma-orange} 0%, #{$magma-red} 100%);
+    --box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+  }
+}
+
+// ============================================
+// TOOLBAR OSCURO
+// ============================================
+ion-toolbar {
+  --background: rgba(15, 15, 15, 0.95);
+  --color: #{$text-light};
+  --border-color: #{$magma-red};
+  border-bottom: 1px solid $magma-red;
+  
+  ion-title {
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $magma-orange;
+    text-shadow: 0 0 10px $magma-red;
+  }
+}
+
+// ============================================
+// TABS PERSONALIZADOS
+// ============================================
+ion-tab-bar {
+  --background: rgba(15, 15, 15, 0.98);
+  --border: 2px solid #{$magma-red};
+  border-top: 2px solid $magma-red;
+  box-shadow: 0 -5px 20px rgba(255, 68, 68, 0.3);
+}
+
+ion-tab-button {
+  --color: #{$text-light};
+  --color-selected: #{$magma-orange};
+  font-weight: 600;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: $magma-red;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  &.tab-selected {
+    &::before {
+      transform: scaleX(1);
+    }
+    
+    ion-icon {
+      filter: drop-shadow(0 0 8px $magma-orange);
+    }
+  }
+  
+  ion-icon {
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover ion-icon {
+    transform: scale(1.1);
+  }
+}
+
+// ============================================
+// ANIMACIONES GLOBALES
+// ============================================
+
+// Animación de partículas flotantes
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(random(40) - 20px);
+    opacity: 0;
+  }
+}
+
+// Efecto de glitch
+@keyframes glitch {
+  0%, 90%, 100% {
+    transform: translate(0);
+  }
+  91% {
+    transform: translate(-2px, 2px);
+  }
+  92% {
+    transform: translate(2px, -2px);
+  }
+  93% {
+    transform: translate(-2px, 2px);
+  }
+}
+
+// Pulso suave
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+// Movimiento de niebla
+@keyframes fogMove {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(20px);
+  }
+}
+
+// ============================================
+// SCROLLBAR PERSONALIZADO
+// ============================================
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $darker-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, $magma-red, $magma-orange);
+  border-radius: 10px;
+  
+  &:hover {
+    background: $magma-red;
+  }
+}
+
+// ============================================
+// UTILIDADES GLOBALES
+// ============================================
+.text-magma {
+  color: $magma-red;
+}
+
+.text-orange {
+  color: $magma-orange;
+}
+
+.glow-text {
+  text-shadow: 0 0 10px $magma-orange;
+}
+
+.apocalyptic-border {
+  border: 1px solid $magma-red;
+  box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: 768px) {
+  ion-tab-button {
+    font-size: 0.85rem;
+    
+    ion-icon {
+      font-size: 1.3rem;
+    }
+  }
+}

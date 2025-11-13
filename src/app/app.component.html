@@ -1,0 +1,45 @@
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
+  <!--ION TABS-->
+<div class="lava-particles">
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+    <div class="particle small"></div>
+    <div class="particle medium"></div>
+    <div class="particle large"></div>
+  </div>
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button *ngFor="let elemento of elementos" [routerLink]="elemento.ruta">
+        <ion-icon [name]="elemento.icono"></ion-icon>
+        <ion-label>{{elemento.nombre}}</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-app>

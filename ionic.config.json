@@ -1,0 +1,7 @@
+{
+  "name": "V-magma",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

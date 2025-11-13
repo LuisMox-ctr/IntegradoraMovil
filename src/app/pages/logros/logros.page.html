@@ -1,0 +1,80 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="trophy" class="title-icon"></ion-icon>
+      LOGROS
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Header con estadísticas -->
+  <div class="stats-header">
+    <div class="stat-card">
+      <ion-icon name="checkbox-outline"></ion-icon>
+      <div class="stat-info">
+        <span class="stat-number">{{ LogrosRecientes.length }}</span>
+        <span class="stat-label">Logros</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <ion-icon name="star"></ion-icon>
+      <div class="stat-info">
+        <span class="stat-number">{{ calcularPuntosTotales() }}</span>
+        <span class="stat-label">Puntos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de logros -->
+  <div class="logros-container">
+    <ion-card *ngFor="let logro of LogrosRecientes; let i = index" 
+              class="logro-card"
+              [class.unlocked]="true"
+              [style.animation-delay]="(i * 0.1) + 's'">
+      
+      <!-- Badge de puntos -->
+      <div class="points-badge">
+        <ion-icon name="star"></ion-icon>
+        {{ logro.puntos }}
+      </div>
+      
+      <!-- Categoría ribbon -->
+      <div class="category-ribbon" [attr.data-category]="logro.categoria">
+        {{ logro.categoria }}
+      </div>
+
+      <ion-card-content>
+        <div class="logro-layout">
+          <!-- Icono del logro -->
+          <div class="logro-icon-container">
+            <img [src]="logro.icono" [alt]="logro.titulo" class="logro-icon" />
+            <div class="icon-glow"></div>
+          </div>
+
+          <!-- Información del logro -->
+          <div class="logro-info">
+            <h2 class="logro-titulo">{{ logro.titulo }}</h2>
+            <p class="logro-descripcion">{{ logro.descripcion }}</p>
+            
+            <!-- Progress bar simulado -->
+            <div class="progress-container">
+              <div class="progress-bar completed"></div>
+              <span class="progress-text">¡COMPLETADO!</span>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+
+      <!-- Efecto de brillo al pasar -->
+      <div class="shine-effect"></div>
+    </ion-card>
+  </div>
+
+  <!-- Mensaje si no hay logros -->
+  <div class="empty-state" *ngIf="LogrosRecientes.length === 0">
+    <ion-icon name="trophy-outline"></ion-icon>
+    <h3>No hay logros desbloqueados</h3>
+    <p>¡Comienza tu aventura en V Magma para desbloquear logros!</p>
+  </div>
+</ion-content>

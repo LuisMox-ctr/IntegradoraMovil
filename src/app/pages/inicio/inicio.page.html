@@ -1,0 +1,96 @@
+<ion-content [fullscreen]="true" class="apocalyptic-bg">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="fog-overlay"></div>
+    <div class="hero-content">
+      <h1 class="game-title glitch" data-text="V MAGMA">V MAGMA</h1>
+      <p class="subtitle">INFIERNO URBANO</p>
+      <div class="city-silhouette"></div>
+    </div>
+  </div>
+
+  <!-- Historia breve -->
+  <div class="story-section">
+    <ion-card class="dark-card">
+      <ion-card-header>
+        <ion-card-title class="section-title">LA CIUDAD DECADENTE</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="story-text">
+          Después de un experimento catastrófico, la ciudad de V Magma se sumergió en el caos. 
+          Cuatro desconocidos atrapados en el desastre deben enfrentar un misterio oscuro que los une. 
+          Sus decisiones cambiarán no solo su destino, sino el de toda la ciudad.
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Personajes -->
+  <div class="characters-section">
+    <h2 class="section-title">LOS 4 SOBREVIVIENTES</h2>
+    
+    <div class="characters-grid">
+      <ion-card *ngFor="let personaje of personajes" class="character-card" [class]="'char-' + personaje.id">
+        <div class="character-header">
+          <ion-icon [name]="personaje.icono" class="character-icon"></ion-icon>
+        </div>
+        <ion-card-header>
+          <ion-card-title class="character-name">{{ personaje.nombre }}</ion-card-title>
+          <ion-card-subtitle class="character-role">{{ personaje.rol }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="character-motivation">
+            <ion-icon name="target-outline"></ion-icon>
+            {{ personaje.motivacion }}
+          </p>
+          <div class="character-stats">
+            <span class="stat">{{ personaje.estilo }}</span>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Sistema de Finales -->
+  <div class="endings-section">
+    <ion-card class="dark-card">
+      <ion-card-header>
+        <ion-card-title class="section-title">
+          <ion-icon name="git-branch-outline"></ion-icon>
+          MÚLTIPLES DESTINOS
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="endings-grid">
+          <div class="ending-type">
+            <ion-icon name="heart" color="success"></ion-icon>
+            <h4>FINAL BUENO</h4>
+            <p>Decisiones morales correctas</p>
+          </div>
+          <div class="ending-type">
+            <ion-icon name="skull" color="danger"></ion-icon>
+            <h4>FINAL MALO</h4>
+            <p>Corrupción y traición</p>
+          </div>
+          <div class="ending-type">
+            <ion-icon name="help-circle" color="warning"></ion-icon>
+            <h4>FINAL NEUTRAL</h4>
+            <p>Supervivencia a cualquier costo</p>
+          </div>
+        </div>
+        <p class="secret-ending">
+          <ion-icon name="star"></ion-icon>
+          Desbloquea todos los finales buenos para revelar el FINAL SECRETO
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="cta-section">
+    <ion-button expand="block" class="play-button" size="large">
+      <ion-icon slot="start" name="play"></ion-icon>
+      COMENZAR AVENTURA
+    </ion-button>
+  </div>
+</ion-content>
