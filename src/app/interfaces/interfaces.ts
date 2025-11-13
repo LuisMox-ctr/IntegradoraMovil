@@ -47,3 +47,11 @@ export interface ComunidadData {
   actividadReciente: Actividad[];
   eventos: Evento[];
 }
+
+export interface LogrosFirebase{
+    categoria:string;
+    descripcion:string;
+    icono:string;
+    puntos:number;
+    titulo:string;
+}
