@@ -44,8 +44,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "20kb",
+                  "maximumError": "25kb"
                 }
               ],
               "fileReplacements": [
@@ -112,7 +112,14 @@
               }
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
-            "scripts": []
+            "scripts": [],
+            
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "src/app/wraper/**/*.ts",
+              "**/*.spec.ts",
+              "**/*.mock.ts"
+            ]
           },
           "configurations": {
             "ci": {

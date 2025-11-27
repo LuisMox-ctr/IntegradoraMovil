@@ -1,22 +1,38 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RespDB } from '../interfaces/interfaces';
-
-import { Firestore, collection, collectionData, doc,
-docData } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { Logro } from '../interfaces/interfaces';
+import { FirestoreWrapper } from '../wraper/firestore.wrapper';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LogrosService {
-  constructor (private http: HttpClient,
-    private firestore:Firestore
-  ){}
-
-  getLogros(){
-    //return this.http.get<RespDB>('https://integradora-f6599-default-rtdb.firebaseio.com/logros.json')
-    const logrosRef=collection(this.firestore,'logros');
-    return collectionData(logrosRef,{idField:'id'});
-  }
   
+  constructor(private firestoreWrapper: FirestoreWrapper) {}
+
+  /**
+   * Obtener todos los logros
+   */
+  getLogros(): Observable<Logro[]> {
+    const logrosRef = this.firestoreWrapper.collection('logros');
+    return this.firestoreWrapper.collectionData(logrosRef, { idField: 'id' }) as Observable<Logro[]>;
+  }
+
+  /**
+   * Obtener un logro específico por ID
+   */
+  async getLogro(id: string): Promise<Logro | null> {
+    try {
+      const logroRef = this.firestoreWrapper.doc('logros', id);
+      const logroSnap = await this.firestoreWrapper.getDoc(logroRef);
+      
+      if (logroSnap.exists()) {
+        return { id: logroSnap.id, ...logroSnap.data() } as Logro;
+      }
+      return null;
+    } catch (error) {
+      console.error('Error al obtener logro:', error);
+      return null;
+    }
+  }
 }

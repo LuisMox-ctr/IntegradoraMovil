@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComunidadService } from 'src/app/services/comunidad';
-import { Jugador, Actividad,Evento } from 'src/app/interfaces/interfaces';
+import { Usuario, Actividad, Evento } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-comunidad',
@@ -9,9 +9,10 @@ import { Jugador, Actividad,Evento } from 'src/app/interfaces/interfaces';
   standalone: false
 })
 export class ComunidadPage implements OnInit {
+  
   vistaActual: 'ranking' | 'actividad' | 'eventos' = 'ranking';
 
-  ranking: Jugador[] = [];
+  ranking: Usuario[] = [];
   actividadReciente: Actividad[] = [];
   eventos: Evento[] = [];
 
@@ -22,24 +23,28 @@ export class ComunidadPage implements OnInit {
   }
 
   cargarDatos() {
-    // Cargar ranking
+    // Cargar ranking con logros expandidos
     this.comunidadService.getRanking().subscribe({
-      next: (respuesta: any) => {
-        console.log("RANKING FIREBASE:", respuesta);
-        this.ranking = Object.values(respuesta);
-        console.log("Ranking procesado:", this.ranking);
+      next: (usuarios) => {
+        this.ranking = usuarios;
+        console.log("Ranking cargado con logros:", usuarios);
+        
+        // Ver logros de cada usuario
+        usuarios.forEach(u => {
+          console.log(`${u.nombre} tiene ${(u as any).logrosExpandidos?.length || 0} logros:`, 
+                      (u as any).logrosExpandidos);
+        });
       },
       error: (error) => {
         console.error('Error al cargar ranking:', error);
       }
     });
 
-    // Cargar actividad reciente
+    // Cargar actividad
     this.comunidadService.getActividad().subscribe({
-      next: (respuesta: any) => {
-        console.log("ACTIVIDAD FIREBASE:", respuesta);
-        this.actividadReciente = Object.values(respuesta);
-        console.log("Actividad procesada:", this.actividadReciente);
+      next: (actividades) => {
+        this.actividadReciente = actividades;
+        console.log("Actividad cargada:", actividades);
       },
       error: (error) => {
         console.error('Error al cargar actividad:', error);
@@ -48,10 +53,9 @@ export class ComunidadPage implements OnInit {
 
     // Cargar eventos
     this.comunidadService.getEventos().subscribe({
-      next: (respuesta: any) => {
-        console.log("EVENTOS FIREBASE:", respuesta);
-        this.eventos = Object.values(respuesta);
-        console.log("Eventos procesados:", this.eventos);
+      next: (eventos) => {
+        this.eventos = eventos;
+        console.log("Eventos cargados:", eventos);
       },
       error: (error) => {
         console.error('Error al cargar eventos:', error);
@@ -72,4 +76,76 @@ export class ComunidadPage implements OnInit {
     };
     return iconos[tipo] || 'information-circle';
   }
+
+  // ✨ NUEVO: Obtener logros de un usuario
+  getLogrosUsuario(usuario: any): any[] {
+    return usuario.logrosExpandidos || [];
+  }
+
+  // ✨ NUEVO: Contar logros reales
+  contarLogrosReales(usuario: any): number {
+    return usuario.logrosExpandidos?.length || 0;
+  }
+  
+  getLogroIcono(actividad: Actividad): string {
+    return (actividad.logro as any)?.icono || '';
+  }
+
+  getLogroTitulo(actividad: Actividad): string {
+    return (actividad.logro as any)?.titulo || 'Logro';
+  }
+
+  tieneLogro(actividad: Actividad): boolean {
+    return !!actividad.logro;
+  }
+
+  // ============================================
+  // ✅ NUEVOS HELPERS PARA JUGADOR
+  // ============================================
+
+  /**
+   * Obtener nombre del jugador (expandido o string)
+   */
+  getNombreJugador(actividad: any): string {
+    // Si jugador es string, retornarlo directamente
+    if (typeof actividad.jugador === 'string') {
+      return actividad.jugador;
+    }
+    
+    // Si tiene jugadorExpandido, usar su nombre
+    if (actividad.jugadorExpandido) {
+      return actividad.jugadorExpandido.nombre || 'Usuario';
+    }
+    
+    return 'Usuario';
+  }
+
+  /**
+   * Obtener avatar del jugador
+   */
+  getAvatarJugador(actividad: any): string {
+    // Si tiene avatar directo
+    if (actividad.avatar && typeof actividad.avatar === 'string') {
+      return actividad.avatar;
+    }
+    
+    // Si tiene jugadorExpandido
+    if (actividad.jugadorExpandido) {
+      return actividad.jugadorExpandido.foto || 
+             actividad.jugadorExpandido.avatar || 
+             'assets/default-avatar.png';
+    }
+    
+    return 'assets/default-avatar.png';
+  }
+  
+  async probarDesbloqueo() {
+  // 🚨 IMPORTANTE: Reemplaza 'ABC123' con tu ID real de Firestore
+  const resultado = await this.comunidadService.desbloquearLogro(
+    '2uNP9JjG40jJrgy3iraz',  // ← Cambia esto por tu ID real
+    'wsE5ACux4A1JzoVRpU5c'  // ID del logro
+  );
+  
+  alert(resultado.mensaje);  // "¡Logro desbloqueado! +100 puntos"
+}
 }

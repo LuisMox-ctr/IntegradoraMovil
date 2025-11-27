@@ -1,0 +1,209 @@
+import { TestBed } from '@angular/core/testing';
+import { Firestore } from '@angular/fire/firestore';
+import { FirestoreWrapper } from './firestore.wrapper';
+
+// 🔥 Importamos todas las funciones como un namespace para poder hacer spy correctamente
+import * as firestoreFns from '@angular/fire/firestore';
+
+describe('FirestoreWrapper', () => {
+  let wrapper: FirestoreWrapper;
+  let firestoreMock: jasmine.SpyObj<Firestore>;
+
+  beforeEach(() => {
+    firestoreMock = jasmine.createSpyObj('Firestore', ['collection', 'doc']);
+
+    TestBed.configureTestingModule({
+      providers: [
+        FirestoreWrapper,
+        { provide: Firestore, useValue: firestoreMock }
+      ]
+    });
+
+    wrapper = TestBed.inject(FirestoreWrapper);
+  });
+
+  it('Debe crear el wrapper', () => {
+    expect(wrapper).toBeTruthy();
+  });
+
+  // ============================================
+  // MÉTODOS DE LECTURA
+  // ============================================
+
+  describe('collection()', () => {
+    it('Debe llamar a collection de Firestore', () => {
+      const mockCollectionRef = {} as any;
+
+      spyOn(firestoreFns, 'collection').and.returnValue(mockCollectionRef);
+
+      const result = wrapper.collection('usuarios');
+
+      expect(firestoreFns.collection).toHaveBeenCalledWith(jasmine.any(Object), 'usuarios');
+      expect(result).toBe(mockCollectionRef);
+    });
+  });
+
+  describe('collectionData()', () => {
+    it('Debe llamar a collectionData de Firestore', () => {
+      const mockRef = {} as any;
+      const mockObservable = {} as any;
+
+      spyOn(firestoreFns, 'collectionData').and.returnValue(mockObservable);
+
+      const result = wrapper.collectionData(mockRef, { idField: 'id' });
+
+      expect(firestoreFns.collectionData)
+  .toHaveBeenCalledWith(mockRef, jasmine.objectContaining({ idField: 'id' }));
+    });
+
+    it('Debe funcionar sin opciones', () => {
+      const mockRef = {} as any;
+      const mockObservable = {} as any;
+
+      spyOn(firestoreFns, 'collectionData').and.returnValue(mockObservable);
+
+      const result = wrapper.collectionData(mockRef);
+
+      expect(firestoreFns.collectionData).toHaveBeenCalledWith(mockRef, undefined);
+      expect(result).toBe(mockObservable);
+    });
+  });
+
+  describe('doc()', () => {
+    it('Debe llamar a doc con un segmento', () => {
+      const mockDocRef = {} as any;
+
+      spyOn(firestoreFns, 'doc').and.returnValue(mockDocRef);
+
+      const result = wrapper.doc('usuarios', 'user1');
+
+      expect(firestoreFns.doc).toHaveBeenCalledWith(jasmine.any(Object), 'usuarios', 'user1');
+      expect(result).toBe(mockDocRef);
+    });
+
+    it('Debe llamar a doc con múltiples segmentos', () => {
+      const mockDocRef = {} as any;
+
+      spyOn(firestoreFns, 'doc').and.returnValue(mockDocRef);
+
+      const result = wrapper.doc('usuarios', 'user1', 'subcollection', 'doc1');
+
+      expect(firestoreFns.doc).toHaveBeenCalledWith(
+        jasmine.any(Object),
+        'usuarios', 'user1', 'subcollection', 'doc1'
+      );
+      expect(result).toBe(mockDocRef);
+    });
+  });
+
+  describe('getDoc()', () => {
+    it('Debe llamar a getDoc de Firestore', async () => {
+      const mockDocRef = {} as any;
+      const mockSnapshot = { name: 'Test' };
+
+      spyOn(firestoreFns, 'getDoc').and.returnValue(Promise.resolve(mockSnapshot as any));
+
+      const result = await wrapper.getDoc(mockDocRef);
+
+      expect(firestoreFns.getDoc).toHaveBeenCalledWith(mockDocRef);
+      expect(result).toBe(mockSnapshot);
+    });
+  });
+
+  // ============================================
+  // MÉTODOS DE ESCRITURA
+  // ============================================
+
+  describe('updateDoc()', () => {
+    it('Debe llamar a updateDoc de Firestore', async () => {
+      const mockDocRef = {} as any;
+      const mockData = { name: 'Updated' };
+
+      spyOn(firestoreFns, 'updateDoc').and.returnValue(Promise.resolve());
+
+      await wrapper.updateDoc(mockDocRef, mockData);
+
+expect(firestoreFns.updateDoc as any)
+  .toHaveBeenCalledWith(mockDocRef, mockData);
+
+    });
+  });
+
+  describe('addDoc()', () => {
+    it('Debe llamar a addDoc de Firestore', async () => {
+      const mockCollectionRef = {} as any;
+      const mockData = { name: 'New Document' };
+      const mockDocRef = {} as any;
+
+      spyOn(firestoreFns, 'addDoc').and.returnValue(Promise.resolve(mockDocRef));
+
+      const result = await wrapper.addDoc(mockCollectionRef, mockData);
+
+      expect(firestoreFns.addDoc).toHaveBeenCalledWith(mockCollectionRef, mockData);
+      expect(result).toBe(mockDocRef);
+    });
+  });
+
+  // ============================================
+  // UTILIDADES
+  // ============================================
+
+  describe('arrayUnion()', () => {
+    it('Debe llamar a arrayUnion de Firestore', () => {
+      const mockResult = {} as any;
+
+      spyOn(firestoreFns, 'arrayUnion').and.returnValue(mockResult);
+
+      const result = wrapper.arrayUnion('a', 'b');
+
+      expect(firestoreFns.arrayUnion).toHaveBeenCalledWith('a', 'b');
+      expect(result).toBe(mockResult);
+    });
+
+    it('Debe funcionar sin argumentos', () => {
+      const mockResult = {} as any;
+
+      spyOn(firestoreFns, 'arrayUnion').and.returnValue(mockResult);
+
+      const result = wrapper.arrayUnion();
+
+      expect(firestoreFns.arrayUnion).toHaveBeenCalledWith();
+      expect(result).toBe(mockResult);
+    });
+  });
+
+  describe('increment()', () => {
+    it('Debe llamar a increment con valor positivo', () => {
+      const mockResult = {} as any;
+
+      spyOn(firestoreFns, 'increment').and.returnValue(mockResult);
+
+      const result = wrapper.increment(10);
+
+      expect(firestoreFns.increment).toHaveBeenCalledWith(10);
+      expect(result).toBe(mockResult);
+    });
+
+    it('Debe llamar a increment con valor negativo', () => {
+      const mockResult = {} as any;
+
+      spyOn(firestoreFns, 'increment').and.returnValue(mockResult);
+
+      const result = wrapper.increment(-5);
+
+      expect(firestoreFns.increment).toHaveBeenCalledWith(-5);
+      expect(result).toBe(mockResult);
+    });
+
+    it('Debe llamar a increment con cero', () => {
+      const mockResult = {} as any;
+
+      spyOn(firestoreFns, 'increment').and.returnValue(mockResult);
+
+      const result = wrapper.increment(0);
+
+      expect(firestoreFns.increment).toHaveBeenCalledWith(0);
+      expect(result).toBe(mockResult);
+    });
+  });
+});

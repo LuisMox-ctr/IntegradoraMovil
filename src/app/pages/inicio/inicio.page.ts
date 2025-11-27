@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DetalleComponent } from 'src/app/componentes/detalle/detalle.component';
+import { ModalController } from '@ionic/angular';
 
 
 interface Personaje {
@@ -53,7 +55,16 @@ export class InicioPage implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(
+    private modalCtrl:ModalController
+  ) { }
+  async verDetalle(id:string){
+    const modal= await this.modalCtrl.create({
+      component:DetalleComponent,
+      componentProps:{id}
+    });
+    modal.present();
+  }
 
   ngOnInit() {
   }

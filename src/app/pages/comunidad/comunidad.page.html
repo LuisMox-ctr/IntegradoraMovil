@@ -1,3 +1,8 @@
+<!-- ============================================ -->
+<!-- comunidad.page.html -->
+<!-- CAMBIOS OPCIONALES - Para mostrar foto o avatar -->
+<!-- ============================================ -->
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
@@ -43,9 +48,12 @@
             <ion-icon name="medal"></ion-icon>
           </div>
           <div class="player-avatar">
-            <img [src]="ranking[1].avatar" [alt]="ranking[1].nombre">
+            <!-- CAMBIO: Usa el helper para obtener foto o avatar -->
+            <img [src]="ranking[1].foto || ranking[1].avatar" 
+                 [alt]="ranking[1].username">
           </div>
-          <h3>{{ ranking[1].nombre }}</h3>
+          <!-- CAMBIO: Puedes mostrar nombre completo -->
+          <h3>{{ ranking[1].username }}</h3>
           <p class="points">{{ ranking[1].puntos }} pts</p>
           <div class="rank-number">2</div>
         </div>
@@ -56,9 +64,10 @@
             <ion-icon name="trophy"></ion-icon>
           </div>
           <div class="player-avatar">
-            <img [src]="ranking[0].avatar" [alt]="ranking[0].nombre">
+            <img [src]="ranking[0].foto || ranking[0].avatar" 
+                 [alt]="ranking[0].nombre">
           </div>
-          <h3>{{ ranking[0].nombre }}</h3>
+          <h3>{{ ranking[0].username }}</h3>
           <p class="points">{{ ranking[0].puntos }} pts</p>
           <div class="rank-number">1</div>
         </div>
@@ -69,9 +78,10 @@
             <ion-icon name="medal"></ion-icon>
           </div>
           <div class="player-avatar">
-            <img [src]="ranking[2].avatar" [alt]="ranking[2].nombre">
+            <img [src]="ranking[2].foto || ranking[2].avatar" 
+                 [alt]="ranking[2].nombre">
           </div>
-          <h3>{{ ranking[2].nombre }}</h3>
+          <h3>{{ ranking[2].nombre }} {{ ranking[2].apellidos || '' }}</h3>
           <p class="points">{{ ranking[2].puntos }} pts</p>
           <div class="rank-number">3</div>
         </div>
@@ -82,15 +92,23 @@
         <ion-card *ngFor="let jugador of ranking.slice(3); let i = index" class="player-card">
           <div class="rank-badge">{{ i + 4 }}</div>
           <div class="player-info">
-            <img [src]="jugador.avatar" [alt]="jugador.nombre" class="avatar-small">
-            <div class="info">
-              <h4>{{ jugador.nombre }}</h4>
-              <p>
-                <ion-icon name="trophy"></ion-icon>
-                {{ jugador.logrosCompletados }} logros
-              </p>
-            </div>
-          </div>
+  <img [src]="jugador.foto || jugador.avatar" [alt]="jugador.nombre" class="avatar-small">
+  <div class="info">
+    <h4>{{ jugador.nombre }} {{ jugador.apellidos || '' }}</h4>
+    <p>
+      <ion-icon name="trophy"></ion-icon>
+      {{ contarLogrosReales(jugador) }} logros
+    </p>
+    
+    <!-- ✨ NUEVO: Mostrar lista de logros -->
+    <div class="logros-mini" *ngIf="getLogrosUsuario(jugador).length > 0">
+      <ion-chip *ngFor="let logro of getLogrosUsuario(jugador).slice(0, 3)">
+        <ion-icon name="trophy"></ion-icon>
+        <ion-label>{{ logro.titulo }}</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+</div>
           <div class="player-points">
             <span class="points-value">{{ jugador.puntos }}</span>
             <span class="points-label">pts</span>
@@ -101,36 +119,41 @@
   </div>
 
   <!-- VISTA: ACTIVIDAD RECIENTE -->
-  <div class="vista-actividad" *ngIf="vistaActual === 'actividad'">
-    <div class="actividad-container">
-      <h2 class="section-title">ACTIVIDAD RECIENTE</h2>
+<div class="vista-actividad" *ngIf="vistaActual === 'actividad'">
+  <div class="actividad-container">
+    <h2 class="section-title">ACTIVIDAD RECIENTE</h2>
+    
+    <ion-card *ngFor="let actividad of actividadReciente" class="actividad-card">
+      <div class="actividad-icon" [class]="'icon-' + actividad.tipo">
+        <ion-icon [name]="getIconoActividad(actividad.tipo)"></ion-icon>
+      </div>
       
-      <ion-card *ngFor="let actividad of actividadReciente" class="actividad-card">
-        <div class="actividad-icon" [class]="'icon-' + actividad.tipo">
-          <ion-icon [name]="getIconoActividad(actividad.tipo)"></ion-icon>
+      <div class="actividad-content">
+        <div class="actividad-header">
+          <!-- ✅ Usar helpers para jugador -->
+          <img [src]="getAvatarJugador(actividad)" 
+               [alt]="getNombreJugador(actividad)" 
+               class="avatar-tiny">
+          <span class="jugador-nombre">{{ getNombreJugador(actividad) }}</span>
+          <span class="tiempo">{{ actividad.tiempo }}</span>
         </div>
         
-        <div class="actividad-content">
-          <div class="actividad-header">
-            <img [src]="actividad.avatar" [alt]="actividad.jugador" class="avatar-tiny">
-            <span class="jugador-nombre">{{ actividad.jugador }}</span>
-            <span class="tiempo">{{ actividad.tiempo }}</span>
-          </div>
-          
-          <p class="actividad-texto">{{ actividad.descripcion }}</p>
-          
-          <div class="actividad-extra" *ngIf="actividad.logro">
-            <div class="logro-mini">
-              <img [src]="actividad.logro.icono" alt="">
-              <span>{{ actividad.logro.nombre }}</span>
-            </div>
+        <p class="actividad-texto">{{ actividad.descripcion }}</p>
+        
+        <!-- ✅ Logros con helpers -->
+        <div class="actividad-extra" *ngIf="tieneLogro(actividad)">
+          <div class="logro-mini">
+            <img [src]="getLogroIcono(actividad)" alt="">
+            <span>{{ getLogroTitulo(actividad) }}</span>
           </div>
         </div>
-      </ion-card>
-    </div>
+      </div>
+    </ion-card>
   </div>
+</div>
 
-  <!-- VISTA: EVENTOS -->
+
+  <!-- VISTA: EVENTOS - Sin cambios -->
   <div class="vista-eventos" *ngIf="vistaActual === 'eventos'">
     <div class="eventos-container">
       <h2 class="section-title">EVENTOS ACTIVOS</h2>
