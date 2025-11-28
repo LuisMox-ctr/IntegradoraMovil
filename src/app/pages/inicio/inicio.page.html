@@ -30,7 +30,7 @@
     <h2 class="section-title">LOS 4 SOBREVIVIENTES</h2>
     
     <div class="characters-grid">
-      <ion-card *ngFor="let personaje of personajes" class="character-card" [class]="'char-' + personaje.id">
+      <ion-card (click)="verDetalle(personaje.id)" *ngFor="let personaje of personajes" class="character-card" [class]="'char-' + personaje.id">
         <div class="character-header">
           <ion-icon [name]="personaje.icono" class="character-icon"></ion-icon>
         </div>

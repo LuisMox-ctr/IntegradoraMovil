@@ -13,10 +13,13 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
 import {provideFirestore, getFirestore} from '@angular/fire/firestore'
 import{provideAuth,getAuth} from '@angular/fire/auth'
 import { firebaseConfig } from 'src/environments/firebaseConfig';
+import { DetalleComponent } from './componentes/detalle/detalle.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,
+    DetalleComponent
+  ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     makeEnvironmentProviders([

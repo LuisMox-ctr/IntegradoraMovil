@@ -1,3 +1,152 @@
-<p>
-  detalle works!
-</p>
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="personaje">{{ personaje.nombre }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="personaje" class="detalle-content">
+  <!-- Hero del personaje -->
+  <div class="personaje-hero" [class]="'hero-' + personaje.id">
+    <div class="hero-overlay"></div>
+    <div class="hero-icon">
+      <ion-icon [name]="personaje.icono" size="large"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Información principal -->
+  <div class="personaje-info">
+    <ion-card class="info-card">
+      <ion-card-header>
+        <ion-card-subtitle class="role-badge">{{ personaje.rol }}</ion-card-subtitle>
+        <ion-card-title>{{ personaje.nombre }}</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <!-- Motivación -->
+        <div class="info-section">
+          <h3>
+            <ion-icon name="target-outline"></ion-icon>
+            Motivación
+          </h3>
+          <p>{{ personaje.motivacion }}</p>
+        </div>
+
+        <!-- Historia -->
+        <div class="info-section">
+          <h3>
+            <ion-icon name="book-outline"></ion-icon>
+            Historia
+          </h3>
+          <p class="historia-text">{{ personaje.historia }}</p>
+        </div>
+
+        <!-- Estilo de juego -->
+        <div class="info-section">
+          <h3>
+            <ion-icon name="game-controller-outline"></ion-icon>
+            Estilo de Juego
+          </h3>
+          <ion-chip color="primary">
+            <ion-label>{{ personaje.estilo }}</ion-label>
+          </ion-chip>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Estadísticas -->
+    <ion-card class="stats-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="stats-chart-outline"></ion-icon>
+          Estadísticas
+        </ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <div class="stat-item">
+          <div class="stat-label">
+            <ion-icon name="barbell-outline"></ion-icon>
+            Fuerza
+          </div>
+          <ion-progress-bar 
+            [value]="personaje.estadisticas.fuerza / 10" 
+            [color]="getStatColor(personaje.estadisticas.fuerza)">
+          </ion-progress-bar>
+          <span class="stat-value">{{ personaje.estadisticas.fuerza }}/10</span>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <ion-icon name="flash-outline"></ion-icon>
+            Agilidad
+          </div>
+          <ion-progress-bar 
+            [value]="personaje.estadisticas.agilidad / 10" 
+            [color]="getStatColor(personaje.estadisticas.agilidad)">
+          </ion-progress-bar>
+          <span class="stat-value">{{ personaje.estadisticas.agilidad }}/10</span>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <ion-icon name="bulb-outline"></ion-icon>
+            Inteligencia
+          </div>
+          <ion-progress-bar 
+            [value]="personaje.estadisticas.inteligencia / 10" 
+            [color]="getStatColor(personaje.estadisticas.inteligencia)">
+          </ion-progress-bar>
+          <span class="stat-value">{{ personaje.estadisticas.inteligencia }}/10</span>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <ion-icon name="shield-outline"></ion-icon>
+            Resistencia
+          </div>
+          <ion-progress-bar 
+            [value]="personaje.estadisticas.resistencia / 10" 
+            [color]="getStatColor(personaje.estadisticas.resistencia)">
+          </ion-progress-bar>
+          <span class="stat-value">{{ personaje.estadisticas.resistencia }}/10</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Habilidades -->
+    <ion-card class="habilidades-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="trophy-outline"></ion-icon>
+          Habilidades Especiales
+        </ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-list class="habilidades-list">
+          <ion-item *ngFor="let habilidad of personaje.habilidades" lines="none">
+            <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
+            <ion-label>{{ habilidad }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+<!-- Mensaje si no se encuentra el personaje -->
+<ion-content *ngIf="!personaje">
+  <div class="error-content">
+    <ion-icon name="alert-circle-outline" size="large" color="danger"></ion-icon>
+    <h2>Personaje no encontrado</h2>
+    <p>No se pudo cargar la información del personaje con ID: <strong>{{ id }}</strong></p>
+    <ion-button (click)="cerrarModal()" color="medium">
+      <ion-icon name="arrow-back" slot="start"></ion-icon>
+      Volver
+    </ion-button>
+  </div>
+</ion-content>

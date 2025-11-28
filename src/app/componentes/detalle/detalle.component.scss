@@ -1,0 +1,254 @@
+.detalle-content {
+  --background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+}
+
+// Hero del personaje
+.personaje-hero {
+  position: relative;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
+
+  &.hero-kenig {
+    background: linear-gradient(135deg, #0984e3 0%, #2d3436 100%);
+  }
+
+  &.hero-juan {
+    background: linear-gradient(135deg, #d63031 0%, #2d3436 100%);
+  }
+
+  &.hero-siggy {
+    background: linear-gradient(135deg, #6c5ce7 0%, #2d3436 100%);
+  }
+
+  &.hero-mox {
+    background: linear-gradient(135deg, #00b894 0%, #2d3436 100%);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.7) 100%);
+  }
+
+  .hero-icon {
+    position: relative;
+    z-index: 2;
+    
+    ion-icon {
+      font-size: 120px;
+      color: white;
+      filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
+      animation: pulse 2s ease-in-out infinite;
+    }
+  }
+}
+
+// Información del personaje
+.personaje-info {
+  padding: 16px;
+}
+
+.info-card {
+  background: rgba(30, 30, 30, 0.95);
+  border-left: 4px solid var(--ion-color-primary);
+  margin-bottom: 16px;
+
+  .role-badge {
+    color: var(--ion-color-primary);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+
+  ion-card-title {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .info-section {
+    margin-bottom: 20px;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ion-color-primary);
+      font-size: 1rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      ion-icon {
+        font-size: 20px;
+      }
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .historia-text {
+      font-size: 0.95rem;
+      text-align: justify;
+    }
+  }
+
+  ion-chip {
+    font-weight: bold;
+  }
+}
+
+// Estadísticas
+.stats-card {
+  background: rgba(30, 30, 30, 0.95);
+  border-left: 4px solid var(--ion-color-success);
+  margin-bottom: 16px;
+
+  ion-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 1.2rem;
+
+    ion-icon {
+      color: var(--ion-color-success);
+    }
+  }
+
+  .stat-item {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .stat-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 120px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+      font-size: 0.9rem;
+
+      ion-icon {
+        font-size: 18px;
+        color: var(--ion-color-primary);
+      }
+    }
+
+    ion-progress-bar {
+      flex: 1;
+      height: 8px;
+      border-radius: 4px;
+    }
+
+    .stat-value {
+      min-width: 40px;
+      text-align: right;
+      color: white;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Habilidades
+.habilidades-card {
+  background: rgba(30, 30, 30, 0.95);
+  border-left: 4px solid var(--ion-color-warning);
+  margin-bottom: 16px;
+
+  ion-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 1.2rem;
+
+    ion-icon {
+      color: var(--ion-color-warning);
+    }
+  }
+
+  .habilidades-list {
+    background: transparent;
+
+    ion-item {
+      --background: transparent;
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      margin-bottom: 8px;
+
+      ion-label {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.95rem;
+      }
+
+      ion-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+// Sección de acción
+.action-section {
+  padding: 16px;
+  padding-bottom: 32px;
+
+  ion-button {
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    --box-shadow: 0 4px 12px rgba(255, 59, 48, 0.4);
+    
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+// Error
+.error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  padding: 32px;
+  text-align: center;
+
+  ion-icon {
+    font-size: 80px;
+  }
+
+  h2 {
+    color: white;
+    margin: 0;
+  }
+}
+
+// Animación
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
