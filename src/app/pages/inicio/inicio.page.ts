@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DetalleComponent } from 'src/app/componentes/detalle/detalle.component';
 import { ModalController } from '@ionic/angular';
+import { DetalleHistoriaComponent } from 'src/app/componentes/detalle-historia/detalle-historia.component';
 
 
 interface Personaje {
@@ -62,6 +63,13 @@ export class InicioPage implements OnInit {
     const modal= await this.modalCtrl.create({
       component:DetalleComponent,
       componentProps:{id}
+    });
+    modal.present();
+  }
+
+  async verHistoria(){
+    const modal= await this.modalCtrl.create({
+      component:DetalleHistoriaComponent,
     });
     modal.present();
   }

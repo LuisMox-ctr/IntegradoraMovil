@@ -14,11 +14,12 @@ import {provideFirestore, getFirestore} from '@angular/fire/firestore'
 import{provideAuth,getAuth} from '@angular/fire/auth'
 import { firebaseConfig } from 'src/environments/firebaseConfig';
 import { DetalleComponent } from './componentes/detalle/detalle.component';
-
+import { DetalleHistoriaComponent } from './componentes/detalle-historia/detalle-historia.component';
 
 @NgModule({
   declarations: [AppComponent,
-    DetalleComponent
+    DetalleComponent,
+    DetalleHistoriaComponent,
   ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
