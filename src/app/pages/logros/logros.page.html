@@ -4,6 +4,9 @@
       <ion-icon name="trophy" class="title-icon"></ion-icon>
       LOGROS
     </ion-title>
+  <ion-buttons slot="end">
+      <app-user-menu></app-user-menu>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -48,7 +51,12 @@
         <div class="logro-layout">
           <!-- Icono del logro -->
           <div class="logro-icon-container">
-            <img [src]="logro.icono" [alt]="logro.titulo" class="logro-icon" />
+            <img 
+              [src]="logro.icono" 
+              alt="Icono de logro"
+              [attr.aria-label]="'Logro: ' + (logro.titulo || 'Sin título')"
+              [title]="logro.titulo || 'Logro'"
+              class="logro-icon" />
             <div class="icon-glow"></div>
           </div>
 

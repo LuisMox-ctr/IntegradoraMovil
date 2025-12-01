@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DetalleComponent } from 'src/app/componentes/detalle/detalle.component';
 import { ModalController } from '@ionic/angular';
 import { DetalleHistoriaComponent } from 'src/app/componentes/detalle-historia/detalle-historia.component';
+import { GameLauncherService } from 'src/app/services/launcher/game-launcher';
 
 
 interface Personaje {
@@ -57,8 +58,13 @@ export class InicioPage implements OnInit {
   ];
 
   constructor(
-    private modalCtrl:ModalController
+    private modalCtrl:ModalController,
+    private gameLauncher: GameLauncherService
   ) { }
+
+  async comenzarAventura(){
+    await this.gameLauncher.launchAdventure();
+  }
   async verDetalle(id:string){
     const modal= await this.modalCtrl.create({
       component:DetalleComponent,

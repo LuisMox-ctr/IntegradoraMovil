@@ -1,3 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <h1 class="game-title">V MAGMA</h1>
+    </ion-title>
+    
+    <!-- 👇 AVATAR DEL USUARIO -->
+    <ion-buttons slot="end">
+      <app-user-menu></app-user-menu>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true" class="apocalyptic-bg">
   <!-- Hero Section -->
   <div class="hero-section">
@@ -88,9 +100,13 @@
 
   <!-- Call to Action -->
   <div class="cta-section">
-    <ion-button expand="block" class="play-button" size="large">
-      <ion-icon slot="start" name="play"></ion-icon>
-      COMENZAR AVENTURA
-    </ion-button>
+    <ion-button 
+  expand="block" 
+  color="danger" 
+  size="large"
+  (click)="comenzarAventura()">
+  <ion-icon slot="start" name="game-controller"></ion-icon>
+  Comenzar Aventura
+</ion-button>
   </div>
 </ion-content>

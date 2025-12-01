@@ -1,0 +1,183 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>NUEVO SOBREVIVIENTE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="registro-bg">
+  <div class="fog-overlay"></div>
+  
+  <div class="registro-container">
+    
+    <!-- Card de Registro -->
+    <ion-card class="registro-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">
+          <ion-icon name="person-add"></ion-icon>
+          CREAR CUENTA
+        </ion-card-title>
+        <ion-card-subtitle class="card-subtitle">
+          Únete a la lucha por V Magma
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- Nombre -->
+        <ion-item class="input-item">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-input 
+            [(ngModel)]="nombre" 
+            type="text" 
+            placeholder="Nombre"
+            [disabled]="loading">
+          </ion-input>
+        </ion-item>
+
+        <!-- Apellidos -->
+        <ion-item class="input-item">
+          <ion-icon name="people-outline" slot="start"></ion-icon>
+          <ion-input 
+            [(ngModel)]="apellidos" 
+            type="text" 
+            placeholder="Apellidos (opcional)"
+            [disabled]="loading">
+          </ion-input>
+        </ion-item>
+
+        <!-- Username -->
+        <ion-item class="input-item">
+          <ion-icon name="at-outline" slot="start"></ion-icon>
+          <ion-input 
+            [(ngModel)]="username" 
+            type="text" 
+            placeholder="Nombre de usuario (opcional)"
+            [disabled]="loading">
+          </ion-input>
+        </ion-item>
+
+        <!-- Email -->
+        <ion-item class="input-item">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input 
+            [(ngModel)]="email" 
+            type="email" 
+            placeholder="Correo electrónico"
+            [disabled]="loading">
+          </ion-input>
+        </ion-item>
+
+        <!-- Contraseña -->
+        <ion-item class="input-item">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input 
+            [(ngModel)]="password" 
+            [type]="showPassword ? 'text' : 'password'" 
+            placeholder="Contraseña (mínimo 6 caracteres)"
+            [disabled]="loading">
+          </ion-input>
+          <ion-icon 
+            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+            slot="end" 
+            (click)="togglePassword()"
+            class="toggle-password">
+          </ion-icon>
+        </ion-item>
+
+        <!-- Confirmar Contraseña -->
+        <ion-item class="input-item">
+          <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+          <ion-input 
+            [(ngModel)]="confirmPassword" 
+            [type]="showConfirmPassword ? 'text' : 'password'" 
+            placeholder="Confirmar contraseña"
+            [disabled]="loading">
+          </ion-input>
+          <ion-icon 
+            [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'" 
+            slot="end" 
+            (click)="toggleConfirmPassword()"
+            class="toggle-password">
+          </ion-icon>
+        </ion-item>
+
+        <!-- Indicador de fortaleza de contraseña -->
+        <div class="password-strength" *ngIf="password.length > 0">
+          <div class="strength-bar">
+            <div 
+              class="strength-fill" 
+              [style.width.%]="passwordStrength.percentage"
+              [style.background-color]="passwordStrength.color">
+            </div>
+          </div>
+          <p [style.color]="passwordStrength.color">
+            {{ passwordStrength.text }}
+          </p>
+        </div>
+
+        <!-- Mensaje de error -->
+        <ion-text color="danger" *ngIf="error" class="error-message">
+          <p>
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            {{ error }}
+          </p>
+        </ion-text>
+
+        <!-- Términos y condiciones -->
+        <div class="terms-container">
+          <ion-checkbox 
+            [(ngModel)]="aceptaTerminos" 
+            [disabled]="loading">
+          </ion-checkbox>
+          <ion-label class="terms-label">
+            Acepto los 
+            <a (click)="verTerminos()">términos y condiciones</a>
+          </ion-label>
+        </div>
+
+        <!-- Botón de registro -->
+        <ion-button 
+          expand="block" 
+          class="registro-button" 
+          (click)="registrar()" 
+          [disabled]="loading || !validarFormulario()">
+          <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+          <span *ngIf="!loading">
+            <ion-icon name="rocket-outline" slot="start"></ion-icon>
+            UNIRSE A LA BATALLA
+          </span>
+        </ion-button>
+
+        <!-- Link a login -->
+        <div class="login-link">
+          <p>
+            ¿Ya tienes una cuenta? 
+            <a (click)="irALogin()">Inicia sesión aquí</a>
+          </p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Información adicional -->
+    <ion-card class="info-card">
+      <ion-card-content>
+        <div class="info-item">
+          <ion-icon name="shield-checkmark" color="success"></ion-icon>
+          <p>Cuenta protegida con Firebase Auth</p>
+        </div>
+        <div class="info-item">
+          <ion-icon name="trophy" color="warning"></ion-icon>
+          <p>Desbloquea logros y sube en el ranking</p>
+        </div>
+        <div class="info-item">
+          <ion-icon name="people" color="primary"></ion-icon>
+          <p>Únete a la comunidad de sobrevivientes</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

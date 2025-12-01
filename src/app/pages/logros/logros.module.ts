@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { LogrosPageRoutingModule } from './logros-routing.module';
 
 import { LogrosPage } from './logros.page';
+import { SharedModule } from 'src/app/componentes/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LogrosPageRoutingModule
+    LogrosPageRoutingModule,
+    SharedModule
   ],
   declarations: [LogrosPage]
 })

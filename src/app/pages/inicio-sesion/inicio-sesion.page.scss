@@ -1,0 +1,353 @@
+// ============================================
+// FONDO APOCALÍPTICO
+// ============================================
+.login-bg {
+  --background: linear-gradient(180deg, #0a0a0a 0%, #1a0a0a 50%, #2a0a0a 100%);
+  position: relative;
+}
+
+.fog-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.8) 100%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 0, 0, 0.03) 2px,
+      rgba(255, 0, 0, 0.03) 4px
+    );
+  pointer-events: none;
+  z-index: 1;
+  animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(20px); }
+}
+
+// ============================================
+// CONTENEDOR PRINCIPAL
+// ============================================
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+// ============================================
+// LOGO DEL JUEGO
+// ============================================
+.game-logo {
+  text-align: center;
+  margin-bottom: 30px;
+  animation: fadeInDown 1s ease;
+}
+
+.game-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ff3333;
+  text-shadow: 
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 30px #ff0000,
+    2px 2px 0px #000;
+  margin: 0;
+  position: relative;
+  
+  &.glitch {
+    animation: glitch 1s infinite;
+  }
+}
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #ff6666;
+  letter-spacing: 4px;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+// ============================================
+// CARD DE LOGIN
+// ============================================
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(20, 20, 30, 0.9);
+  border: 2px solid rgba(255, 50, 50, 0.3);
+  border-radius: 15px;
+  box-shadow: 
+    0 0 20px rgba(255, 0, 0, 0.2),
+    inset 0 0 20px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 1s ease;
+ // backdrop-filter: blur(10px);
+  
+  ion-card-header {
+    padding-bottom: 10px;
+  }
+  
+  .card-title {
+    color: #ff6666;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  ion-card-content {
+    padding: 20px;
+  }
+}
+
+// ============================================
+// INPUTS
+// ============================================
+.input-item {
+  --background: rgba(0, 0, 0, 0.5);
+  --border-color: rgba(255, 50, 50, 0.3);
+  --border-radius: 10px;
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --highlight-color-focused: #ff3333;
+  margin-bottom: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  
+  ion-icon {
+    color: #ff6666;
+    font-size: 1.2rem;
+    margin-right: 10px;
+  }
+  
+  ion-input {
+    --color: #fff;
+    --placeholder-color: #999;
+    --placeholder-opacity: 0.7;
+  }
+  
+  &:focus-within {
+    --border-color: #ff3333;
+    box-shadow: 0 0 10px rgba(255, 50, 50, 0.3);
+  }
+}
+
+.toggle-password {
+  cursor: pointer;
+  color: #999;
+  transition: color 0.3s;
+  
+  &:hover {
+    color: #ff6666;
+  }
+}
+
+// ============================================
+// MENSAJES DE ERROR
+// ============================================
+.error-message {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 15px 0;
+  background: rgba(255, 0, 0, 0.1);
+  border-left: 3px solid #ff3333;
+  border-radius: 5px;
+  animation: shake 0.5s;
+  
+  p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+  }
+  
+  ion-icon {
+    font-size: 1.2rem;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+// ============================================
+// BOTONES
+// ============================================
+.login-button {
+  --background: linear-gradient(135deg, #cc0000, #660000);
+  --background-hover: linear-gradient(135deg, #ff0000, #880000);
+  --background-activated: linear-gradient(135deg, #aa0000, #550000);
+  --border-radius: 10px;
+  --box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+  margin-top: 20px;
+  margin-bottom: 10px;
+  height: 50px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  
+  &:hover:not([disabled]) {
+    transform: translateY(-2px);
+    --box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  ion-spinner {
+    margin-right: 10px;
+  }
+}
+
+.register-button {
+  --border-color: #ff6666;
+  --color: #ff6666;
+  --border-width: 2px;
+  --border-radius: 10px;
+  height: 50px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  
+  &:hover:not([disabled]) {
+    --background: rgba(255, 50, 50, 0.1);
+    --border-color: #ff3333;
+    --color: #ff3333;
+  }
+}
+
+// ============================================
+// SEPARADOR
+// ============================================
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 50, 50, 0.3);
+  }
+  
+  span {
+    padding: 0 15px;
+    color: #999;
+    font-size: 0.9rem;
+  }
+}
+
+// ============================================
+// OLVIDÉ MI CONTRASEÑA
+// ============================================
+.forgot-password {
+  text-align: center;
+  margin-top: 15px;
+  
+  ion-button {
+    --color: #999;
+    font-size: 0.85rem;
+    text-transform: none;
+    
+    &:hover {
+      --color: #ff6666;
+    }
+  }
+}
+
+// ============================================
+// FOOTER
+// ============================================
+.footer-text {
+  margin-top: 30px;
+  text-align: center;
+  
+  p {
+    color: #666;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+}
+
+// ============================================
+// ANIMACIONES
+// ============================================
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: 768px) {
+  .game-title {
+    font-size: 2.5rem;
+  }
+  
+  .login-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+}

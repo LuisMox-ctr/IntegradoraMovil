@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ComunidadService } from 'src/app/services/comunidad';
+import { ComunidadService } from 'src/app/services/comunidad/comunidad';
 import { Usuario, Actividad, Evento } from 'src/app/interfaces/interfaces';
+import { GameLauncherService } from 'src/app/services/launcher/game-launcher';
 
 @Component({
   selector: 'app-comunidad',
@@ -16,8 +17,20 @@ export class ComunidadPage implements OnInit {
   actividadReciente: Actividad[] = [];
   eventos: Evento[] = [];
 
-  constructor(private comunidadService: ComunidadService) { }
+  constructor(private comunidadService: ComunidadService,
+              private gameLauncher: GameLauncherService
+  ) { }
 
+
+  async unirseEvento(evento: Evento){
+    console.log('Uniendose al evento:', evento.nombre);
+    await this.gameLauncher.joinEvent('');//le falta el id del evento xdxdxd
+  }
+
+  async verificarJuego(){
+    const installed = await this.gameLauncher.isGameInstalled();
+    console.log('Juego instalado?', installed);
+  }
   ngOnInit() {
     this.cargarDatos();
   }
