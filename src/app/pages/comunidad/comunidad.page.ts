@@ -17,20 +17,11 @@ export class ComunidadPage implements OnInit {
   actividadReciente: Actividad[] = [];
   eventos: Evento[] = [];
 
-  constructor(private comunidadService: ComunidadService,
-              private gameLauncher: GameLauncherService
+  constructor(
+    private comunidadService: ComunidadService,
+    private gameLauncher: GameLauncherService
   ) { }
 
-
-  async unirseEvento(evento: Evento){
-    console.log('Uniendose al evento:', evento.nombre);
-    await this.gameLauncher.joinEvent('');//le falta el id del evento xdxdxd
-  }
-
-  async verificarJuego(){
-    const installed = await this.gameLauncher.isGameInstalled();
-    console.log('Juego instalado?', installed);
-  }
   ngOnInit() {
     this.cargarDatos();
   }
@@ -90,12 +81,12 @@ export class ComunidadPage implements OnInit {
     return iconos[tipo] || 'information-circle';
   }
 
-  // ✨ NUEVO: Obtener logros de un usuario
+  // Obtener logros de un usuario
   getLogrosUsuario(usuario: any): any[] {
     return usuario.logrosExpandidos || [];
   }
 
-  // ✨ NUEVO: Contar logros reales
+  // Contar logros reales
   contarLogrosReales(usuario: any): number {
     return usuario.logrosExpandidos?.length || 0;
   }
@@ -112,13 +103,7 @@ export class ComunidadPage implements OnInit {
     return !!actividad.logro;
   }
 
-  // ============================================
-  // ✅ NUEVOS HELPERS PARA JUGADOR
-  // ============================================
-
-  /**
-   * Obtener nombre del jugador (expandido o string)
-   */
+  // Helpers para jugador
   getNombreJugador(actividad: any): string {
     // Si jugador es string, retornarlo directamente
     if (typeof actividad.jugador === 'string') {
@@ -133,9 +118,6 @@ export class ComunidadPage implements OnInit {
     return 'Usuario';
   }
 
-  /**
-   * Obtener avatar del jugador
-   */
   getAvatarJugador(actividad: any): string {
     // Si tiene avatar directo
     if (actividad.avatar && typeof actividad.avatar === 'string') {
@@ -151,14 +133,38 @@ export class ComunidadPage implements OnInit {
     
     return 'assets/default-avatar.png';
   }
-  
+
+  // 🎮 UNIRSE AL EVENTO - CON VALIDACIÓN
+  async unirseEvento(evento: Evento) {
+    // Validar que el evento tenga ID
+    if (!evento || !evento.id) {
+      console.error('Evento sin ID válido:', evento);
+      return;
+    }
+
+    console.log('🎮 Uniéndose al evento:', evento.nombre);
+    
+    try {
+      await this.gameLauncher.joinEvent(evento.id);
+    } catch (error) {
+      console.error('Error al unirse al evento:', error);
+    }
+  }
+
+  // Verificar si el juego está instalado
+  async verificarJuego() {
+    const installed = await this.gameLauncher.isGameInstalled();
+    console.log('¿Juego instalado?', installed);
+    return installed;
+  }
+
+  // Probar desbloqueo de logro
   async probarDesbloqueo() {
-  // 🚨 IMPORTANTE: Reemplaza 'ABC123' con tu ID real de Firestore
-  const resultado = await this.comunidadService.desbloquearLogro(
-    '2uNP9JjG40jJrgy3iraz',  // ← Cambia esto por tu ID real
-    'wsE5ACux4A1JzoVRpU5c'  // ID del logro
-  );
-  
-  alert(resultado.mensaje);  // "¡Logro desbloqueado! +100 puntos"
-}
+    const resultado = await this.comunidadService.desbloquearLogro(
+      '2uNP9JjG40jJrgy3iraz',  // ID del usuario
+      'wsE5ACux4A1JzoVRpU5c'   // ID del logro
+    );
+    
+    alert(resultado.mensaje);
+  }
 }

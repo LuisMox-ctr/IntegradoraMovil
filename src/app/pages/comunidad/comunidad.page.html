@@ -1,8 +1,3 @@
-<!-- ============================================ -->
-<!-- comunidad.page.html -->
-<!-- CAMBIOS OPCIONALES - Para mostrar foto o avatar -->
-<!-- ============================================ -->
-
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
@@ -48,11 +43,11 @@
             <ion-icon name="medal"></ion-icon>
           </div>
           <div class="player-avatar">
-            <!-- CAMBIO: Usa el helper para obtener foto o avatar -->
-            <img [src]="ranking[1].foto || ranking[1].avatar" 
-                 [alt]="ranking[1].username">
+            <img 
+              [src]="ranking[1].foto || ranking[1].avatar || 'assets/default-avatar.png'" 
+              [alt]="'Avatar de ' + ranking[1].username + ' - Segundo lugar'"
+              [title]="'Avatar de ' + ranking[1].username + ' - Segundo lugar'">
           </div>
-          <!-- CAMBIO: Puedes mostrar nombre completo -->
           <h3>{{ ranking[1].username }}</h3>
           <p class="points">{{ ranking[1].puntos }} pts</p>
           <div class="rank-number">2</div>
@@ -64,8 +59,10 @@
             <ion-icon name="trophy"></ion-icon>
           </div>
           <div class="player-avatar">
-            <img [src]="ranking[0].foto || ranking[0].avatar" 
-                 [alt]="ranking[0].nombre">
+            <img 
+              [src]="ranking[0].foto || ranking[0].avatar || 'assets/default-avatar.png'" 
+              [alt]="'Avatar de ' + ranking[0].nombre + ' - Primer lugar'"
+              [title]="'Avatar de ' + ranking[0].nombre + ' - Primer lugar'">
           </div>
           <h3>{{ ranking[0].username }}</h3>
           <p class="points">{{ ranking[0].puntos }} pts</p>
@@ -78,8 +75,10 @@
             <ion-icon name="medal"></ion-icon>
           </div>
           <div class="player-avatar">
-            <img [src]="ranking[2].foto || ranking[2].avatar" 
-                 [alt]="ranking[2].nombre">
+            <img 
+              [src]="ranking[2].foto || ranking[2].avatar || 'assets/default-avatar.png'" 
+              [alt]="'Avatar de ' + ranking[2].nombre + ' - Tercer lugar'"
+              [title]="'Avatar de ' + ranking[2].nombre + ' - Tercer lugar'">
           </div>
           <h3>{{ ranking[2].nombre }} {{ ranking[2].apellidos || '' }}</h3>
           <p class="points">{{ ranking[2].puntos }} pts</p>
@@ -92,23 +91,27 @@
         <ion-card *ngFor="let jugador of ranking.slice(3); let i = index" class="player-card">
           <div class="rank-badge">{{ i + 4 }}</div>
           <div class="player-info">
-  <img [src]="jugador.foto || jugador.avatar" [alt]="jugador.nombre" class="avatar-small">
-  <div class="info">
-    <h4>{{ jugador.nombre }} {{ jugador.apellidos || '' }}</h4>
-    <p>
-      <ion-icon name="trophy"></ion-icon>
-      {{ contarLogrosReales(jugador) }} logros
-    </p>
-    
-    <!-- ✨ NUEVO: Mostrar lista de logros -->
-    <div class="logros-mini" *ngIf="getLogrosUsuario(jugador).length > 0">
-      <ion-chip *ngFor="let logro of getLogrosUsuario(jugador).slice(0, 3)">
-        <ion-icon name="trophy"></ion-icon>
-        <ion-label>{{ logro.titulo }}</ion-label>
-      </ion-chip>
-    </div>
-  </div>
-</div>
+            <img 
+              [src]="jugador.foto || jugador.avatar || 'assets/default-avatar.png'" 
+              [alt]="'Avatar del jugador ' + jugador.nombre"
+              [title]="'Avatar del jugador ' + jugador.nombre"
+              class="avatar-small">
+            <div class="info">
+              <h4>{{ jugador.nombre }} {{ jugador.apellidos || '' }}</h4>
+              <p>
+                <ion-icon name="trophy"></ion-icon>
+                {{ contarLogrosReales(jugador) }} logros
+              </p>
+              
+              <!-- Mostrar lista de logros -->
+              <div class="logros-mini" *ngIf="getLogrosUsuario(jugador).length > 0">
+                <ion-chip *ngFor="let logro of getLogrosUsuario(jugador).slice(0, 3)">
+                  <ion-icon name="trophy"></ion-icon>
+                  <ion-label>{{ logro.titulo }}</ion-label>
+                </ion-chip>
+              </div>
+            </div>
+          </div>
           <div class="player-points">
             <span class="points-value">{{ jugador.puntos }}</span>
             <span class="points-label">pts</span>
@@ -119,41 +122,44 @@
   </div>
 
   <!-- VISTA: ACTIVIDAD RECIENTE -->
-<div class="vista-actividad" *ngIf="vistaActual === 'actividad'">
-  <div class="actividad-container">
-    <h2 class="section-title">ACTIVIDAD RECIENTE</h2>
-    
-    <ion-card *ngFor="let actividad of actividadReciente" class="actividad-card">
-      <div class="actividad-icon" [class]="'icon-' + actividad.tipo">
-        <ion-icon [name]="getIconoActividad(actividad.tipo)"></ion-icon>
-      </div>
+  <div class="vista-actividad" *ngIf="vistaActual === 'actividad'">
+    <div class="actividad-container">
+      <h2 class="section-title">ACTIVIDAD RECIENTE</h2>
       
-      <div class="actividad-content">
-        <div class="actividad-header">
-          <!-- ✅ Usar helpers para jugador -->
-          <img [src]="getAvatarJugador(actividad)" 
-               [alt]="getNombreJugador(actividad)" 
-               class="avatar-tiny">
-          <span class="jugador-nombre">{{ getNombreJugador(actividad) }}</span>
-          <span class="tiempo">{{ actividad.tiempo }}</span>
+      <ion-card *ngFor="let actividad of actividadReciente" class="actividad-card">
+        <div class="actividad-icon" [class]="'icon-' + actividad.tipo">
+          <ion-icon [name]="getIconoActividad(actividad.tipo)"></ion-icon>
         </div>
         
-        <p class="actividad-texto">{{ actividad.descripcion }}</p>
-        
-        <!-- ✅ Logros con helpers -->
-        <div class="actividad-extra" *ngIf="tieneLogro(actividad)">
-          <div class="logro-mini">
-            <img [src]="getLogroIcono(actividad)" alt="">
-            <span>{{ getLogroTitulo(actividad) }}</span>
+        <div class="actividad-content">
+          <div class="actividad-header">
+            <img 
+              [src]="getAvatarJugador(actividad)" 
+              [alt]="'Avatar del usuario ' + getNombreJugador(actividad)"
+              [title]="'Avatar del usuario ' + getNombreJugador(actividad)"
+              class="avatar-tiny">
+            <span class="jugador-nombre">{{ getNombreJugador(actividad) }}</span>
+            <span class="tiempo">{{ actividad.tiempo }}</span>
+          </div>
+          
+          <p class="actividad-texto">{{ actividad.descripcion }}</p>
+          
+          <!-- Logros -->
+          <div class="actividad-extra" *ngIf="tieneLogro(actividad)">
+            <div class="logro-mini">
+              <img 
+                [src]="getLogroIcono(actividad)" 
+                [alt]="'Icono del logro: ' + getLogroTitulo(actividad)"
+                [title]="'Logro: ' + getLogroTitulo(actividad)">
+              <span>{{ getLogroTitulo(actividad) }}</span>
+            </div>
           </div>
         </div>
-      </div>
-    </ion-card>
+      </ion-card>
+    </div>
   </div>
-</div>
 
-
-  <!-- VISTA: EVENTOS - Sin cambios -->
+  <!-- VISTA: EVENTOS -->
   <div class="vista-eventos" *ngIf="vistaActual === 'eventos'">
     <div class="eventos-container">
       <h2 class="section-title">EVENTOS ACTIVOS</h2>
@@ -187,12 +193,25 @@
             <span>{{ evento.participantes }} participantes</span>
           </div>
           
-          <ion-button expand="block" class="btn-participar">
-            <ion-icon slot="start" name="flag"></ion-icon>
-            PARTICIPAR
+          <!-- 🎮 BOTÓN PARA UNIRSE AL EVENTO -->
+          <ion-button 
+            expand="block" 
+            color="success"
+            size="large"
+            class="btn-participar"
+            (click)="unirseEvento(evento)">
+            <ion-icon slot="start" name="game-controller"></ion-icon>
+            UNIRSE AL EVENTO
           </ion-button>
         </ion-card-content>
       </ion-card>
+
+      <!-- Mensaje si no hay eventos -->
+      <div class="no-eventos" *ngIf="eventos.length === 0">
+        <ion-icon name="calendar-clear" size="large"></ion-icon>
+        <h3>No hay eventos activos</h3>
+        <p>Vuelve pronto para nuevos desafíos</p>
+      </div>
     </div>
   </div>
 </ion-content>
