@@ -12,6 +12,7 @@ interface Personaje {
   motivacion: string;
   estilo: string;
   icono: string;
+  img: string;
 }
 
 @Component({
@@ -29,7 +30,8 @@ export class InicioPage implements OnInit {
       rol: 'El Protagonista',
       motivacion: 'Descubrir qué pasó con su raza',
       estilo: 'Acción / Investigación',
-      icono: 'search-outline'
+      icono: 'search-outline',
+      img: '../../../assets/img/avatares/avatar4.jpg'
     },
     {
       id: 'juan',
@@ -37,7 +39,8 @@ export class InicioPage implements OnInit {
       rol: 'El Luchador',
       motivacion: 'Encontrar los secretos del desastre',
       estilo: 'Fuerza / Decisiones Rápidas',
-      icono: 'fitness-outline'
+      icono: 'fitness-outline',
+      img: '../../../assets/img/avatares/avatar5.jpg'
     },
     {
       id: 'siggy',
@@ -45,7 +48,8 @@ export class InicioPage implements OnInit {
       rol: 'El Prisionero Fugado',
       motivacion: 'Escapar de su pasado oscuro',
       estilo: 'Supervivencia / Agresividad',
-      icono: 'alert-circle-outline'
+      icono: 'alert-circle-outline',
+      img: '../../../assets/img/avatares/avatar6.jpg'
     },
     {
       id: 'mox',
@@ -53,7 +57,8 @@ export class InicioPage implements OnInit {
       rol: 'El Simpson',
       motivacion: 'Salvar a todos los sobrevivientes',
       estilo: 'Tanque / Sacrificio',
-      icono: 'medical-outline'
+      icono: 'medical-outline',
+      img: '../../../assets/img/personajes/mox.jpeg'
     }
   ];
 
