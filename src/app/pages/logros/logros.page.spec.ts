@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { LogrosPage } from './logros.page';
-import { LogrosService } from 'src/app/services/logros';
+import { LogrosService } from 'src/app/services/logros/logros'; // ✅ Ruta corregida
 import { Firestore } from '@angular/fire/firestore';
 import { Logro } from 'src/app/interfaces/interfaces';
 
@@ -33,16 +33,16 @@ describe('LogrosPage - 100% Cobertura', () => {
     fixture.detectChanges();
   });
 
-  it(' Debe crear el componente', () => {
+  it('✅ Debe crear el componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it(' Debe inicializar con array vacío', () => {
+  it('✅ Debe inicializar con array vacío', () => {
     const newComponent = new LogrosPage(logrosServiceMock);
     expect(newComponent.LogrosRecientes).toEqual([]);
   });
 
-  it(' Debe cargar los logros al iniciar y mostrar console.log', () => {
+  it('✅ Debe cargar los logros al iniciar y mostrar console.log', () => {
     const consoleSpy = spyOn(console, 'log');
     
     component.ngOnInit();
@@ -53,7 +53,7 @@ describe('LogrosPage - 100% Cobertura', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Logros cargados:', mockLogros);
   });
 
-  it(' Debe manejar error al cargar logros', () => {
+  it('✅ Debe manejar error al cargar logros', () => {
     const errorSpy = spyOn(console, 'error');
     const errorMessage = 'Error de red';
     
@@ -69,17 +69,17 @@ describe('LogrosPage - 100% Cobertura', () => {
     );
   });
 
-  it(' Debe calcular correctamente los puntos totales', () => {
+  it('✅ Debe calcular correctamente los puntos totales', () => {
     component.LogrosRecientes = mockLogros;
     expect(component.calcularPuntosTotales()).toBe(150);
   });
 
-  it(' Debe retornar 0 si no hay logros', () => {
+  it('✅ Debe retornar 0 si no hay logros', () => {
     component.LogrosRecientes = [];
     expect(component.calcularPuntosTotales()).toBe(0);
   });
 
-  it(' Debe calcular puntos con un solo logro', () => {
+  it('✅ Debe calcular puntos con un solo logro', () => {
     component.LogrosRecientes = [mockLogros[0]];
     expect(component.calcularPuntosTotales()).toBe(100);
   });

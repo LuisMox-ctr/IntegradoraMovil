@@ -64,25 +64,6 @@ export class UserMenuComponent implements OnInit {
     this.cerrarMenu();
     this.router.navigate(['/logros']);
   }
-
-  // Ir a estadísticas
-  irAEstadisticas() {
-    this.cerrarMenu();
-    this.router.navigate(['/estadisticas']);
-  }
-
-  // Ir a configuración
-  irAConfiguracion() {
-    this.cerrarMenu();
-    this.router.navigate(['/configuracion']);
-  }
-
-  // Ir a comunidad
-  irAComunidad() {
-    this.cerrarMenu();
-    this.router.navigate(['/comunidad']);
-  }
-
   // Cerrar sesión
   async cerrarSesion() {
     this.cerrarMenu();

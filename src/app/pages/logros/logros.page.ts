@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Logro } from 'src/app/interfaces/interfaces';
-import { LogrosService } from 'src/app/services/logros';
+import { LogrosService } from 'src/app/services/logros/logros';
 
 @Component({
   standalone: false,

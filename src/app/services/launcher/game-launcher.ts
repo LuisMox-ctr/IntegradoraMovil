@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Platform, AlertController } from '@ionic/angular';
 import { App } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +10,29 @@ import { Browser } from '@capacitor/browser';
 export class GameLauncherService {
 
   // URL Scheme personalizado de tu juego
-  // Ejemplo: vmagmagame://
-  private readonly GAME_URL_SCHEME = 'vmagmagame://';
+  private readonly GAME_URL_SCHEME = 'https://www.youtube.com/';
   
   // URLs de descarga del juego
-  private readonly PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.tuapp.vmagma';
-  private readonly APP_STORE_URL = 'https://apps.apple.com/app/idTUAPP';
+  private readonly PLAY_STORE_URL = 'https://play.google.com/store/games?device=windows&pli=1';
+  private readonly APP_STORE_URL = 'https://www.apple.com/mx/app-store/';
+
+  // Flag para modo de pruebas - desactiva la verificación de apertura de app
+  // Por defecto usa el valor del environment, pero puede ser sobrescrito manualmente
+  private isTestMode = environment.testMode;
 
   constructor(
     private platform: Platform,
     private alertController: AlertController
   ) {}
+
+  /**
+   * Configurar el modo de pruebas
+   * En modo de pruebas, no se verifica si la app realmente se abrió
+   * @param enabled - true para activar modo test, false para desactivar
+   */
+  setTestMode(enabled: boolean): void {
+    this.isTestMode = enabled;
+  }
 
   /**
    * Intenta abrir el juego con parámetros específicos
@@ -88,6 +101,7 @@ export class GameLauncherService {
         });
         
         // Esperar un momento para ver si se abrió
+        // En modo de pruebas, esto se salta
         await this.waitForAppOpen();
         
       } catch (error) {
@@ -103,8 +117,14 @@ export class GameLauncherService {
 
   /**
    * Esperar para verificar si la app se abrió
+   * En modo de pruebas, esta verificación se omite
    */
   private async waitForAppOpen(): Promise<void> {
+    // En modo de pruebas, resolver inmediatamente sin verificar
+    if (this.isTestMode) {
+      return Promise.resolve();
+    }
+
     return new Promise(async (resolve, reject) => {
       const timeout = setTimeout(() => {
         reject(new Error('Timeout: Game not opened'));

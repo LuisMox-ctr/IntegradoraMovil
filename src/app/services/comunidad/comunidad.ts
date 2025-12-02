@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DocumentReference } from '@angular/fire/firestore';
-import { Usuario, Actividad, Evento, Logro } from '../interfaces/interfaces';
+import { Usuario, Actividad, Evento, Logro } from '../../interfaces/interfaces';
 import { FirestoreWrapper } from 'src/app/wraper/firestore.wrapper';
 
 @Injectable({

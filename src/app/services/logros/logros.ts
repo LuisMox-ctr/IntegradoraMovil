@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Logro } from '../interfaces/interfaces';
-import { FirestoreWrapper } from '../wraper/firestore.wrapper';
+import { Logro } from 'src/app/interfaces/interfaces';
+import { FirestoreWrapper } from 'src/app/wraper/firestore.wrapper';
 
 @Injectable({
   providedIn: 'root',
