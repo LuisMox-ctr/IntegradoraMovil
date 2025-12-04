@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from 'src/app/services/login/login';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -18,27 +18,38 @@ export class InicioSesionPage implements OnInit {
   // Estados
   loading: boolean = false;
   error: string = '';
-  showPassword: boolean = false;  // 👈 FALTABA ESTA PROPIEDAD
+  showPassword: boolean = false;
+  
+  // URL de retorno (si intentó acceder a una página protegida)
+  private returnUrl: string = '/inicio';
 
   constructor(
     private loginService: Login, 
     private router: Router,
-    private alertController: AlertController  // 👈 AGREGADO para alertas
+    private route: ActivatedRoute,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
     // Verificar si ya hay sesión activa
     if (this.loginService.isLoggedIn()) {
       this.router.navigate(['/inicio']);
+      return;
     }
+
+    // Obtener la URL de retorno si existe
+    this.route.queryParams.subscribe(params => {
+      if (params['returnUrl']) {
+        this.returnUrl = params['returnUrl'];
+        console.log('Redirigirá a:', this.returnUrl);
+      }
+    });
   }
 
-  // 👇 FALTABA ESTE MÉTODO
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
-  // Iniciar sesión (ya lo tenías, está bien)
   async iniciarSesion() {
     // Validaciones básicas
     if (!this.email || !this.password) {
@@ -61,8 +72,9 @@ export class InicioSesionPage implements OnInit {
       // Mostrar mensaje de bienvenida
       await this.mostrarBienvenida(usuario.nombre);
       
-      // Redirigir a la página principal
-      this.router.navigate(['/inicio']);
+      // Redirigir a la página que intentaba acceder o al inicio
+      this.router.navigateByUrl(this.returnUrl);
+      
     } catch (error: any) {
       this.error = error.message;
       console.error('❌ Error:', error);
@@ -71,12 +83,10 @@ export class InicioSesionPage implements OnInit {
     }
   }
 
-  // 👇 FALTABA ESTE MÉTODO
   irARegistro() {
     this.router.navigate(['/registro']);
   }
 
-  // 👇 FALTABA ESTE MÉTODO
   async recuperarPassword() {
     const alert = await this.alertController.create({
       header: 'Recuperar Contraseña',
@@ -96,9 +106,9 @@ export class InicioSesionPage implements OnInit {
         },
         {
           text: 'Enviar',
-          handler: (data) => {
+          handler: async (data) => {
             if (data.email) {
-              this.enviarRecuperacion(data.email);
+              await this.enviarRecuperacion(data.email);
             }
           }
         }
@@ -108,12 +118,7 @@ export class InicioSesionPage implements OnInit {
     await alert.present();
   }
 
-  // 👇 MÉTODO AUXILIAR PARA RECUPERAR CONTRASEÑA
   async enviarRecuperacion(email: string) {
-    // Aquí implementarías la lógica de Firebase para recuperar contraseña
-    // import { sendPasswordResetEmail } from '@angular/fire/auth';
-    // await sendPasswordResetEmail(auth, email);
-    
     const alert = await this.alertController.create({
       header: 'Email Enviado',
       message: 'Si el email existe, recibirás instrucciones para recuperar tu contraseña',
@@ -123,7 +128,6 @@ export class InicioSesionPage implements OnInit {
     await alert.present();
   }
 
-  // 👇 MÉTODO PARA MOSTRAR BIENVENIDA
   async mostrarBienvenida(nombre: string) {
     const alert = await this.alertController.create({
       header: '¡Bienvenido!',
@@ -135,7 +139,6 @@ export class InicioSesionPage implements OnInit {
     await alert.present();
   }
 
-  // 👇 VALIDAR FORMATO DE EMAIL
   private validarEmail(email: string): boolean {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);

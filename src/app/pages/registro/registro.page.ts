@@ -199,22 +199,28 @@ export class RegistroPage implements OnInit {
   async verTerminos() {
     const alert = await this.alertController.create({
       header: 'Términos y Condiciones',
-      message: `
-        <div style="text-align: left;">
-          <h3>V Magma: Infierno Urbano</h3>
-          <p><strong>1. Aceptación de términos</strong></p>
-          <p>Al crear una cuenta, aceptas nuestros términos de uso.</p>
-          
-          <p><strong>2. Uso de datos</strong></p>
-          <p>Tu información será utilizada únicamente para mejorar tu experiencia de juego.</p>
-          
-          <p><strong>3. Comportamiento</strong></p>
-          <p>Debes mantener un comportamiento respetuoso con otros jugadores.</p>
-          
-          <p><strong>4. Privacidad</strong></p>
-          <p>Tus datos están protegidos según nuestras políticas de privacidad.</p>
-        </div>
-      `,
+       message: `
+1. ACEPTACIÓN DE TÉRMINOS
+Al crear una cuenta, aceptas nuestros términos de uso.
+
+2. USO DE DATOS
+Tu información será utilizada únicamente para mejorar tu experiencia de juego.
+
+3. COMPORTAMIENTO
+Debes mantener un comportamiento respetuoso con otros jugadores.
+
+4. PRIVACIDAD
+Tus datos están protegidos según nuestras políticas de privacidad.
+
+5. PROPIEDAD INTELECTUAL
+Todo el contenido del juego es propiedad de V Magma.
+
+6. MODIFICACIONES
+Nos reservamos el derecho de modificar estos términos.
+
+7. CONTACTO
+soporte@vmagma.com
+    `,
       buttons: ['Cerrar'],
       cssClass: 'terms-alert'
     });

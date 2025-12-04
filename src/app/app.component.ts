@@ -17,7 +17,8 @@ export class AppComponent {
   elementos: IonTabs []=[
     {nombre:'Inicio',ruta: '/inicio', icono: 'home'},
     {nombre:'Logros',ruta: '/logros', icono: 'trophy'},
-    {nombre:'Comunidad',ruta: '/comunidad', icono: 'people'},  
+    {nombre:'Comunidad',ruta: '/comunidad', icono: 'people'},
+    {nombre:'Nosotros', ruta: '/nosotros', icono: 'information-circle'}
   ];
   constructor() {}
 }
