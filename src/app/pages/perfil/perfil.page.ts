@@ -134,7 +134,7 @@ export class PerfilPage implements OnInit {
       });
 
       const toast = await this.toastController.create({
-        message: '✅ Avatar actualizado correctamente',
+        message: 'Avatar actualizado correctamente',
         duration: 2000,
         color: 'success',
         position: 'top'
@@ -207,7 +207,7 @@ export class PerfilPage implements OnInit {
     // Validar que tenga al menos nombre
     if (!data.nombre || data.nombre.trim() === '') {
       const toast = await this.toastController.create({
-        message: '⚠️ El nombre es obligatorio',
+        message: 'El nombre es obligatorio',
         duration: 2000,
         color: 'warning'
       });
@@ -223,7 +223,7 @@ export class PerfilPage implements OnInit {
       });
 
       const toast = await this.toastController.create({
-        message: '✅ Perfil actualizado correctamente',
+        message: 'Perfil actualizado correctamente',
         duration: 2000,
         color: 'success',
         position: 'top'
@@ -233,7 +233,7 @@ export class PerfilPage implements OnInit {
     } catch (error) {
       console.error('Error al actualizar perfil:', error);
       const toast = await this.toastController.create({
-        message: '❌ Error al actualizar perfil',
+        message: 'Error al actualizar perfil',
         duration: 2000,
         color: 'danger',
         position: 'top'
@@ -266,7 +266,7 @@ export class PerfilPage implements OnInit {
             if (data.email) {
               // Aquí implementarías sendPasswordResetEmail
               const toast = await this.toastController.create({
-                message: '📧 Email de recuperación enviado',
+                message: 'Email de recuperación enviado',
                 duration: 3000,
                 color: 'success',
                 position: 'top'
@@ -291,26 +291,6 @@ export class PerfilPage implements OnInit {
     this.router.navigate(['/logros']);
   }
 
-  // Compartir perfil
-  async compartirPerfil() {
-    const mensaje = `🎮 ¡Mira mi perfil en V Magma!\n\n` +
-                   `👤 ${this.usuario?.nombre}\n` +
-                   `🏆 ${this.usuario?.puntos || 0} puntos\n` +
-                   `🎖️ ${this.usuario?.logrosCompletados || 0} logros\n` +
-                   `⚡ Nivel ${this.calcularNivel()}`;
-
-    const toast = await this.toastController.create({
-      message: 'Función de compartir en desarrollo',
-      duration: 2000,
-      color: 'warning',
-      position: 'top'
-    });
-    await toast.present();
-
-    // Para futuro: usar Share API de Capacitor
-    console.log('Compartir:', mensaje);
-  }
-
   // Cerrar sesión
   async cerrarSesion() {
     const alert = await this.alertController.create({
@@ -332,7 +312,7 @@ export class PerfilPage implements OnInit {
               this.router.navigate(['/login']);
               
               const toast = await this.toastController.create({
-                message: '👋 Sesión cerrada correctamente',
+                message: 'Sesión cerrada correctamente',
                 duration: 2000,
                 color: 'success',
                 position: 'top'
@@ -341,7 +321,7 @@ export class PerfilPage implements OnInit {
             } catch (error) {
               console.error('Error al cerrar sesión:', error);
               const toast = await this.toastController.create({
-                message: '❌ Error al cerrar sesión',
+                message: 'Error al cerrar sesión',
                 duration: 2000,
                 color: 'danger',
                 position: 'top'

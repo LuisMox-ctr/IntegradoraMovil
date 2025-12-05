@@ -179,7 +179,7 @@ export class RegistroPage implements OnInit {
 
     } catch (error: any) {
       this.error = error.message;
-      console.error('❌ Error al registrar:', error);
+      console.error(' Error al registrar:', error);
     } finally {
       this.loading = false;
     }
@@ -233,12 +233,8 @@ soporte@vmagma.com
     const alert = await this.alertController.create({
       header: '¡Bienvenido a V Magma!',
       message: `
-        <div style="text-align: center;">
-          <ion-icon name="rocket" style="font-size: 48px; color: #ff6666;"></ion-icon>
-          <p>Hola <strong>${nombre}</strong></p>
-          <p>Tu cuenta ha sido creada exitosamente.</p>
-          <p>¡Prepárate para sobrevivir!</p>
-        </div>
+          Hola ${nombre}.
+          Tu cuenta ha sido creada exitosamente.
       `,
       buttons: [
         {

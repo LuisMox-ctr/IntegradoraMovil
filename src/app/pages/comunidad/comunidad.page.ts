@@ -134,7 +134,7 @@ export class ComunidadPage implements OnInit {
     return 'assets/default-avatar.png';
   }
 
-  // 🎮 UNIRSE AL EVENTO - CON VALIDACIÓN
+  // UNIRSE AL EVENTO - CON VALIDACIÓN
   async unirseEvento(evento: Evento) {
     // Validar que el evento tenga ID
     if (!evento || !evento.id) {
@@ -142,7 +142,7 @@ export class ComunidadPage implements OnInit {
       return;
     }
 
-    console.log('🎮 Uniéndose al evento:', evento.nombre);
+    console.log('Uniéndose al evento:', evento.nombre);
     
     try {
       await this.gameLauncher.joinEvent(evento.id);

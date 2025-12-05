@@ -77,7 +77,7 @@ export class InicioSesionPage implements OnInit {
       
     } catch (error: any) {
       this.error = error.message;
-      console.error('❌ Error:', error);
+      console.error('Error:', error);
     } finally {
       this.loading = false;
     }
