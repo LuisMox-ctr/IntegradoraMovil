@@ -31,7 +31,7 @@ export class InicioPage implements OnInit {
       motivacion: 'Descubrir qué pasó con su raza',
       estilo: 'Acción / Investigación',
       icono: 'search-outline',
-      img: '../../../assets/img/avatares/avatar4.jpg'
+      img: '../../../assets/img/personajes/kenig galindo.png'
     },
     {
       id: 'juan',
@@ -40,7 +40,7 @@ export class InicioPage implements OnInit {
       motivacion: 'Encontrar los secretos del desastre',
       estilo: 'Fuerza / Decisiones Rápidas',
       icono: 'fitness-outline',
-      img: '../../../assets/img/avatares/avatar5.jpg'
+      img: '../../../assets/img/personajes/juanCena.png'
     },
     {
       id: 'siggy',
@@ -49,7 +49,7 @@ export class InicioPage implements OnInit {
       motivacion: 'Escapar de su pasado oscuro',
       estilo: 'Supervivencia / Agresividad',
       icono: 'alert-circle-outline',
-      img: '../../../assets/img/avatares/avatar6.jpg'
+      img: '../../../assets/img/personajes/siggy.png'
     },
     {
       id: 'mox',
@@ -58,7 +58,7 @@ export class InicioPage implements OnInit {
       motivacion: 'Salvar a todos los sobrevivientes',
       estilo: 'Tanque / Sacrificio',
       icono: 'medical-outline',
-      img: '../../../assets/img/personajes/mox.jpeg'
+      img: '../../../assets/img/personajes/mox.png'
     }
   ];
 

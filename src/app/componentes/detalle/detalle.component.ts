@@ -53,7 +53,7 @@ export class DetalleComponent  implements OnInit {
         inteligencia: 9,
         resistencia: 6
       },
-      imagen: '../../../assets/img/avatares/avatar4.jpg'
+      imagen: '../../../assets/img/personajes/kenig galindo.png'
     },
     {
       id: 'juan',
@@ -75,7 +75,7 @@ export class DetalleComponent  implements OnInit {
         inteligencia: 5,
         resistencia: 9
       },
-      imagen: '../../../assets/img/avatares/avatar5.jpg'
+      imagen: '../../../assets/img/personajes/juanCena.png'
     },
     {
       id: 'siggy',
@@ -97,7 +97,7 @@ export class DetalleComponent  implements OnInit {
         inteligencia: 6,
         resistencia: 8
       },
-      imagen: '../../../assets/img/avatares/avatar6.jpg'
+      imagen: '../../../assets/img/personajes/siggy.png'
     },
     {
       id: 'mox',
@@ -119,7 +119,7 @@ export class DetalleComponent  implements OnInit {
         inteligencia: 8,
         resistencia: 10
       },
-      imagen: '../../../assets/img/personajes/mox.jpeg'
+      imagen: '../../../assets/img/personajes/mox.png'
     }
   ];
 

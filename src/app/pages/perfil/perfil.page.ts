@@ -17,12 +17,12 @@ export class PerfilPage implements OnInit {
 
   // Avatares predeterminados disponibles
   avataresPredeterminados = [
-    { id: 1, url: 'assets/img/avatares/avatar1.webp', nombre: '' },
-    { id: 2, url: 'assets/img/avatares/avatar2.webp', nombre: '' },
-    { id: 3, url: 'assets/img/avatares/avatar3.webp', nombre: '' },
-    { id: 4, url: 'assets/img/avatares/avatar4.jpg', nombre: '' },
-    { id: 5, url: 'assets/img/avatares/avatar5.jpg', nombre: '' },
-    { id: 6, url: 'assets/img/avatares/avatar6.jpg', nombre: '' }
+    { id: 1, url: 'assets/img/avatares/avatar1.webp', nombre: 'Avatar 1' },
+    { id: 2, url: 'assets/img/avatares/avatar2.webp', nombre: 'Avatar 2' },
+    { id: 3, url: 'assets/img/avatares/avatar3.webp', nombre: 'Avatar 3' },
+    { id: 4, url: 'assets/img/avatares/avatar4.jpg', nombre: 'Avatar 4' },
+    { id: 5, url: 'assets/img/avatares/avatar5.jpg', nombre: 'Avatar 5' },
+    { id: 6, url: 'assets/img/avatares/avatar6.jpg', nombre: 'Avatar 6' }
   ];
 
   constructor(

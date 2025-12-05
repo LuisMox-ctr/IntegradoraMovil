@@ -44,7 +44,7 @@
     <div class="characters-grid">
       <ion-card (click)="verDetalle(personaje.id)" *ngFor="let personaje of personajes" class="character-card" [class]="'char-' + personaje.id">
         <div class="character-header">
-          <img src="{{personaje.img}}"  class="character-icon" alt="">
+          <img src="{{personaje.img}}"  class="character-icon" alt="" class="monosImg">
         </div>
         <ion-card-header>
           <ion-card-title class="character-name">{{ personaje.nombre }}</ion-card-title>
